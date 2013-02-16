@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Comments Not Replied To\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-02-15 15:03-0500\n"
-"PO-Revision-Date: 2013-02-15 15:03-0500\n"
+"POT-Creation-Date: 2013-02-16 09:37-0500\n"
+"PO-Revision-Date: 2013-02-16 09:37-0500\n"
 "Last-Translator: Tom McFarlin <tom@tommcfarlin.com>\n"
 "Language-Team: Tom McFarlin <tom@tommcfarlin.com>\n"
 "Language: en_US\n"
@@ -16,6 +16,22 @@ msgstr ""
 "X-Generator: Poedit 1.5.5\n"
 "X-Poedit-SearchPath-0: ..\n"
 
-#: ../comments-not-replied-to.php:74
+#: ../comments-not-replied-to.php:84 ../comments-not-replied-to.php:226
 msgid "Missing Reply"
+msgstr ""
+
+#: ../comments-not-replied-to.php:107
+msgid "This comment is by the post author."
+msgstr ""
+
+#: ../comments-not-replied-to.php:116
+msgid "The post author has repied."
+msgstr ""
+
+#: ../comments-not-replied-to.php:118
+msgid "The author has not replied."
+msgstr ""
+
+#: ../comments-not-replied-to.php:247
+msgid "Comments Missing Reply"
 msgstr ""
