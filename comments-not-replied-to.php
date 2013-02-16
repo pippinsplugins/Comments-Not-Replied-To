@@ -61,7 +61,6 @@ class Comments_Not_Replied_To {
 	 *
 	 * @since	1.0
 	 */
-
 	public function plugin_textdomain() {
 		load_plugin_textdomain( 'cnrt', false, dirname( plugin_basename( __FILE__ ) ) . '/lang' );
 	} // end plugin_textdomain
@@ -95,7 +94,6 @@ class Comments_Not_Replied_To {
 	  *
 	  * @since	1.0
 	  */
-	  
 	 public function missing_reply_display( $column_name, $comment_id ) {
 	 
 		 // If we're looking at the 'Missing Reply' column...
@@ -112,6 +110,7 @@ class Comments_Not_Replied_To {
 				// First, we get all of the replies for this comment
 				$replies = $this->get_comment_replies( $comment_id );
 				
+				// Note whether or not the comment author has replied.
 				if( $this->author_has_replied( $replies ) ) {
 					_e( 'The post author has repied.', 'cnrt' );
 				} else {
@@ -243,12 +242,12 @@ class Comments_Not_Replied_To {
 		?>
 
 		<div class="wrap">
-    	<div class="icon32" id="icon-edit-comments"><br></div>
-		<h2><?php _e('Comments Missing Reply', 'cnrt') ?></h2>
+    		<div class="icon32" id="icon-edit-comments"><br></div>
+    		<h2><?php _e( 'Comments Missing Reply', 'cnrt' ); ?></h2>
 
-		THIS WILL HAVE THAT SWEET WORDPRESS UI WE'VE ALL GROWN TO LOVE.
+    		THIS WILL HAVE THAT SWEET WORDPRESS UI WE'VE ALL GROWN TO LOVE.
 
-		</div>
+		</div><!-- /.wrap -->
 
 	<?php }  // end missing_reply_layout
 
