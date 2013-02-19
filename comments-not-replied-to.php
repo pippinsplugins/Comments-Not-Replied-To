@@ -252,10 +252,13 @@ class Comments_Not_Replied_To {
 
 	public function missing_reply_status_link( $status_links ) {
 
+		// add check for including 'current' class
 		$current = isset( $_GET['missing_reply'] ) ? 'class="current"' : '';
 
-		$status_links['missing_reply'] = '<a href="edit-comments.php?comment_status=all&missing_reply=1" '.$current.'>Missing Reply</a>';
+		// set new link
+		$status_links['missing_reply'] = '<a href="edit-comments.php?comment_status=all&missing_reply=1" '.$current.'>'.__( 'Missing Reply', 'cnrt' ).'</a>';
 
+		// return all the status links
 		return $status_links;
 
 	} // end missing_reply_status_link
