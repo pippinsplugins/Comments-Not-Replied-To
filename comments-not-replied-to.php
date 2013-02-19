@@ -55,8 +55,8 @@ class Comments_Not_Replied_To {
 		add_filter( 'manage_edit-comments_columns', array( $this, 'missing_reply_column' ) );
 		add_filter( 'manage_comments_custom_column', array( $this, 'missing_reply_display' ), 10, 2	);
 
-		// add separate admin page in comments
-		add_action( 'admin_menu', array( $this, 'missing_reply_page' ) );
+		// add 'Missing Reply' link in status row
+		add_filter( 'comment_status_links', array( $this, 'missing_reply_status_link' ) );
 
 	} // end constructor
 
@@ -242,35 +242,24 @@ class Comments_Not_Replied_To {
 
 	 } // end get_post_author_email
 
-	public function missing_reply_page() {
-	    add_submenu_page('edit-comments.php', __('Missing Reply', 'cnrt'), __('Missing Reply', 'cnrt'), 'edit_posts', 'missing-reply', array( $this, 'missing_reply_layout' ));
-
-	} // end missing_reply_page
-
 	/**
-	 * Adds a new page to the under the 'Comments' page for indicating whether or not
-	 * the given comment has not received a reply from the post author.
+	 * Adds a new item in the comment status links to select those missing a reply
 	 *
 	 * @return	array				The array of columns to display
 	 *
 	 * @since	1.0
 	 */
 
-	public function missing_reply_layout() {
-		// bail if user doesn't have access to do this
-		if (!current_user_can('edit_posts') )
-			return;
-		?>
+	public function missing_reply_status_link( $status_links ) {
 
-		<div class="wrap">
-    		<div class="icon32" id="icon-edit-comments"><br></div>
-    		<h2><?php _e( 'Comments Missing Reply', 'cnrt' ); ?></h2>
+		$current = isset( $_GET['missing_reply'] ) ? 'class="current"' : '';
 
-    		THIS WILL HAVE THAT SWEET WORDPRESS UI WE'VE ALL GROWN TO LOVE.
+		$status_links['missing_reply'] = '<a href="edit-comments.php?comment_status=all&missing_reply=1" '.$current.'>Missing Reply</a>';
 
-		</div><!-- /.wrap -->
+		return $status_links;
 
-	<?php }  // end missing_reply_layout
+	} // end missing_reply_status_link
+
 
 } // end class
 
