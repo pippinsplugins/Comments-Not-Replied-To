@@ -328,7 +328,7 @@ class Comments_Not_Replied_To {
 	public function add_missing_meta( $comment_id ) {
 
 		// set an inital false tag on comment set
-		add_comment_meta( $comment_id, '_cnrt_replied', false );
+		add_comment_meta( $comment_id, '_cnrt_missing', true );
 
 	} // end add_missing_meta
 
