@@ -40,6 +40,15 @@ class Comments_Not_Replied_To {
 	 */
 	static $instance = false;
 
+
+	/**
+	 * Lib URL
+	 *
+	 * @since	1.0
+	 */
+	private $lib_url = '';
+
+
 	/**
 	 * Initializes the plugin by setting localization, filters, and administration functions.
 	 * constructor is private to force the use of getInstance() to make this a Singleton
@@ -47,6 +56,8 @@ class Comments_Not_Replied_To {
 	 * @since	1.0
 	 */
 	private function __construct() {
+
+		$this->lib_url = plugin_dir_url( __FILE__ ) . 'lib';
 
 		// Load plugin textdomain
 		add_action( 'init', array( $this, 'plugin_textdomain' ) );
@@ -140,23 +151,24 @@ class Comments_Not_Replied_To {
 	  */
 	 public function missing_reply_display( $column_name, $comment_id ) {
 
-		 // If we're looking at the 'Missing Reply' column...
-		 if( 'missing-reply' !== trim ( $column_name ) )
+		// If we're looking at the 'Missing Reply' column...
+		if( 'missing-reply' !== trim ( $column_name ) )
 		 	return;
 
 		 $comment = get_comment( $comment_id );
 
-		 if( '0' == $comment->comment_approved )
+		if( '0' == $comment->comment_approved )
 		 	return;
 
-		 // If the comment is by the author, then we'll note that its been replied
-		 if( $this->comment_is_by_post_author( $comment_id ) ) {
+		// If the comment is by the author, then we'll note that its been replied
+		if( $this->comment_is_by_post_author( $comment_id ) ) {
 
 			$message = __( 'This comment is by the author.', 'cnrt' );
 			$status  = 'cnrt-author-comment';
+			$icon    = 'icon-author.png';
 
 		 // Otherwise, let's look at the replies to determine if the author has made a reply
-		 } else {
+		} else {
 
 			// First, we get all of the replies for this comment
 			$replies = $this->get_comment_replies( $comment_id );
@@ -165,14 +177,18 @@ class Comments_Not_Replied_To {
 			if( $this->author_has_replied( $replies ) ) {
 				$message = __( 'The author has replied.', 'cnrt' );
 				$status  = 'cnrt-has-replied';
+				$icon    = 'icon-replied.png';
 			} else {
 				$message = __( 'The author has not replied.', 'cnrt' );
 				$status  = 'cnrt-has-not-replied';
+				$icon    = 'icon-not-replied.png';
 			} // end if
 
-		 } // end if/else
+		} // end if/else
 
-		 printf( '<span class="cnrt cnrt-%s" id="cnrt-%d">%s</span>', $status, $comment_id, $message );
+		$icon = '<img src="' . esc_url( $this->lib_url . '/img/' . $icon ) . '"/>';
+
+		printf( '<span class="cnrt cnrt-%s" id="cnrt-%d">%s%s</span>', $status, $comment_id, $icon, $message );
 
 	 } // end missing_reply_display
 
