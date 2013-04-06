@@ -146,7 +146,7 @@ class Comments_Not_Replied_To {
 			 // If the comment is by the author, then we'll note that its been replied
 			 if( $this->comment_is_by_post_author( $comment_id ) ) {
 
-				 _e( 'This comment is by the post author.', 'cnrt' );
+				 _e( 'This comment is by the author.', 'cnrt' );
 
 			 // Otherwise, let's look at the replies to determine if the author has made a reply
 			 } else {
@@ -156,7 +156,7 @@ class Comments_Not_Replied_To {
 
 				// Note whether or not the comment author has replied.
 				if( $this->author_has_replied( $replies ) ) {
-					_e( 'The post author has repied.', 'cnrt' );
+					_e( 'The author has replied.', 'cnrt' );
 				} else {
 					_e( 'The author has not replied.', 'cnrt' );
 				} // end if
