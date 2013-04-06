@@ -72,6 +72,9 @@ class Comments_Not_Replied_To {
 		// add 'Missing Reply' link in status row
 		add_filter( 'comment_status_links', array( $this, 'missing_reply_status_link' ) );
 
+		// Add CSS to admin_head
+		add_action( 'admin_head', array( $this, 'admin_css' ) );
+
 	} // end constructor
 
 	/**
@@ -328,6 +331,28 @@ class Comments_Not_Replied_To {
 		add_comment_meta( $comment_id, '_cnrt_replied', false );
 
 	} // end add_missing_meta
+
+
+	/**
+	 * Add CSS to the admin head
+	 *
+	 * @return	void
+	 *
+	 * @since	1.0
+	 */
+
+	public function admin_css() {
+
+		global $pagenow;
+
+		if( 'edit-comments.php' !== $pagenow )
+			return;
+
+		echo '<style type="text/css">.cnrt img { display: inline-block; vertical-align: top; margin: 0 4px 0 0; };</style>';
+
+	} // end admin_css
+
+
 
 } // end class
 
