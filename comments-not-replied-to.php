@@ -308,8 +308,16 @@ class Comments_Not_Replied_To {
 		// add check for including 'current' class
 		$current = isset( $_GET['missing_reply'] ) ? 'class="current"' : '';
 
+		// get missing count
+		$missing_num	= $this->get_missing_count();
+		// create link
+		$status_link	= '<a href="edit-comments.php?comment_status=all&missing_reply=1" '.$current.'>';
+		$status_link	.= __( 'Missing Reply', 'cnrt' );
+		$status_link	.= ' <span class="count">(<span class="pending-count">'.$missing_num.'</span>)</span>';
+		$status_link	.= '</a>';
+
 		// set new link
-		$status_links['missing_reply'] = '<a href="edit-comments.php?comment_status=all&missing_reply=1" '.$current.'>'.__( 'Missing Reply', 'cnrt' ).'</a>';
+		$status_links['missing_reply'] = $status_link;
 
 		// return all the status links
 		return $status_links;
@@ -319,8 +327,7 @@ class Comments_Not_Replied_To {
 	/**
 	 * Add the meta tag to comments for query logic later
 	 * @param	int		$comment_id		The ID of the comment for which to retrieve replies.
-	 *
-	 * @return	string					The count
+	 * @return	bool					Whether or not the post author has replied.
 	 *
 	 * @since	1.0
 	 */
@@ -334,6 +341,30 @@ class Comments_Not_Replied_To {
 
 
 	/**
+	 * Return number of comments with missing replies, either global or per post
+	 * @param	int		$post_id		optional post ID for which to retrieve count.
+	 * @return	int						the count
+	 *
+	 * @since	1.0
+	 */
+
+	public function get_missing_count( $post_id = 0 ) {
+
+		$args = array(
+			'post_id'		=> $post_id,
+			'meta_key'		=> '_cnrt_missing',
+			'meta_value'	=> '1',
+		);
+
+		$comments	= get_comments($args);
+
+		$count		= !empty($comments) ? count( $comments ) : '0';
+
+		return $count;
+
+	} // end get_missing_count
+
+	/**
 	 * Add CSS to the admin head
 	 *
 	 * @return	void
@@ -343,12 +374,22 @@ class Comments_Not_Replied_To {
 
 	public function admin_css() {
 
-		global $pagenow;
+		$current_screen = get_current_screen();
 
-		if( 'edit-comments.php' !== $pagenow )
+		if( $current_screen->base !== 'edit-comments' )
 			return;
 
-		echo '<style type="text/css">.cnrt img { display: inline-block; vertical-align: top; margin: 0 4px 0 0; };</style>';
+		echo '<style type="text/css">
+			span.cnrt {
+				padding: 3px 0 0;
+				display: block;
+			}
+			.cnrt img {
+				display: inline-block;
+				vertical-align: top;
+				margin: 0 4px 0 0;
+			};
+			</style>';
 
 	} // end admin_css
 
@@ -356,6 +397,6 @@ class Comments_Not_Replied_To {
 
 } // end class
 
-//$GLOBAL['cnrt'] = new Comments_Not_Replied_To();
+
 // Instantiate our class
 $Comments_Not_Replied_To = Comments_Not_Replied_To::getInstance();
