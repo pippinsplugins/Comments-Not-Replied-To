@@ -93,7 +93,7 @@ class Comments_Not_Replied_To {
 		$mofile        = sprintf( '%1$s-%2$s.mo', 'cnrt', $locale );
 
 		// Setup paths to current locale file
-		$mofile_local  = $cnrt_lang_dir . $mofile;
+		$mofile_local  = $lang_fir . $mofile;
 		$mofile_global = WP_LANG_DIR . '/cnrt/' . $mofile;
 
 		if ( file_exists( $mofile_global ) ) {
