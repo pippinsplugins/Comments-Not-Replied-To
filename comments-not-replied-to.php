@@ -141,30 +141,28 @@ class Comments_Not_Replied_To {
 	 public function missing_reply_display( $column_name, $comment_id ) {
 
 		 // If we're looking at the 'Missing Reply' column...
-		 if( 'missing-reply' == trim ( $column_name ) ) {
+		 if( 'missing-reply' !== trim ( $column_name ) )
+		 	return;
 
-			 // If the comment is by the author, then we'll note that its been replied
-			 if( $this->comment_is_by_post_author( $comment_id ) ) {
+		 // If the comment is by the author, then we'll note that its been replied
+		 if( $this->comment_is_by_post_author( $comment_id ) ) {
 
-				 _e( 'This comment is by the post author.', 'cnrt' );
+			 _e( 'This comment is by the author.', 'cnrt' );
 
-			 // Otherwise, let's look at the replies to determine if the author has made a reply
-			 } else {
+		 // Otherwise, let's look at the replies to determine if the author has made a reply
+		 } else {
 
-				// First, we get all of the replies for this comment
-				$replies = $this->get_comment_replies( $comment_id );
+			// First, we get all of the replies for this comment
+			$replies = $this->get_comment_replies( $comment_id );
 
-				// Note whether or not the comment author has replied.
-				if( $this->author_has_replied( $replies ) ) {
-					_e( 'The post author has repied.', 'cnrt' );
-				} else {
-					_e( 'The author has not replied.', 'cnrt' );
-				} // end if
+			// Note whether or not the comment author has replied.
+			if( $this->author_has_replied( $replies ) ) {
+				_e( 'The author has replied.', 'cnrt' );
+			} else {
+				_e( 'The author has not replied.', 'cnrt' );
+			} // end if
 
-			 } // end if/else
-
-
-		 } // end if
+		 } // end if/else
 
 	 } // end missing_reply_display
 
