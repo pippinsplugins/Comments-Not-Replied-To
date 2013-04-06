@@ -83,7 +83,30 @@ class Comments_Not_Replied_To {
 	 * @since	1.0
 	 */
 	public function plugin_textdomain() {
-		load_plugin_textdomain( 'cnrt', false, dirname( plugin_basename( __FILE__ ) ) . '/lang' );
+
+		// Set filter for plugin's languages directory
+		$lang_fir = dirname( plugin_basename( __FILE__ ) ) . '/lang/';
+		$lang_fir = apply_filters( 'cnrt_languages_directory', $lang_fir );
+
+		// Traditional WordPress plugin locale filter
+		$locale        = apply_filters( 'plugin_locale',  get_locale(), 'cnrt' );
+		$mofile        = sprintf( '%1$s-%2$s.mo', 'cnrt', $locale );
+
+		// Setup paths to current locale file
+		$mofile_local  = $cnrt_lang_dir . $mofile;
+		$mofile_global = WP_LANG_DIR . '/cnrt/' . $mofile;
+
+		if ( file_exists( $mofile_global ) ) {
+			// Look in global /wp-content/languages/cnrt folder
+			load_textdomain( 'cnrt', $mofile_global );
+		} elseif ( file_exists( $mofile_local ) ) {
+			// Look in local /wp-content/plugins/comments-not-replied-to/languages/ folder
+			load_textdomain( 'cnrt', $mofile_local );
+		} else {
+			// Load the default language files
+			load_plugin_textdomain( 'cnrt', false, $lang_fir );
+		}
+
 	} // end plugin_textdomain
 
 	/*--------------------------------------------*
