@@ -152,7 +152,8 @@ class Comments_Not_Replied_To {
 		 // If the comment is by the author, then we'll note that its been replied
 		 if( $this->comment_is_by_post_author( $comment_id ) ) {
 
-			 _e( 'This comment is by the author.', 'cnrt' );
+			$message = __( 'This comment is by the author.', 'cnrt' );
+			$status  = 'cnrt-author-comment';
 
 		 // Otherwise, let's look at the replies to determine if the author has made a reply
 		 } else {
@@ -162,12 +163,16 @@ class Comments_Not_Replied_To {
 
 			// Note whether or not the comment author has replied.
 			if( $this->author_has_replied( $replies ) ) {
-				_e( 'The author has replied.', 'cnrt' );
+				$message = __( 'The author has replied.', 'cnrt' );
+				$status  = 'cnrt-has-replied';
 			} else {
-				_e( 'The author has not replied.', 'cnrt' );
+				$message = __( 'The author has not replied.', 'cnrt' );
+				$status  = 'cnrt-has-not-replied';
 			} // end if
 
 		 } // end if/else
+
+		 printf( '<span class="cnrt cnrt-%s" id="cnrt-%d">%s</span>', $status, $comment_id, $message );
 
 	 } // end missing_reply_display
 
