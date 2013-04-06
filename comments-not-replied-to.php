@@ -62,6 +62,9 @@ class Comments_Not_Replied_To {
 		// Load plugin textdomain
 		add_action( 'init', array( $this, 'plugin_textdomain' ) );
 
+		// add the comment meta to comments on entry
+		add_action( 'comment_post', array( $this, 'add_missing_meta' ) );
+
 		// Add the 'Missing Reply' custom column
 		add_filter( 'manage_edit-comments_columns', array( $this, 'missing_reply_column' ) );
 		add_filter( 'manage_comments_custom_column', array( $this, 'missing_reply_display' ), 10, 2	);
@@ -310,6 +313,21 @@ class Comments_Not_Replied_To {
 
 	} // end missing_reply_status_link
 
+	/**
+	 * Add the meta tag to comments for query logic later
+	 * @param	int		$comment_id		The ID of the comment for which to retrieve replies.
+	 *
+	 * @return	string					The count
+	 *
+	 * @since	1.0
+	 */
+
+	public function add_missing_meta( $comment_id ) {
+
+		// set an inital false tag on comment set
+		add_comment_meta( $comment_id, '_cnrt_replied', false );
+
+	} // end add_missing_meta
 
 } // end class
 
