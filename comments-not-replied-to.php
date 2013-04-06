@@ -144,6 +144,11 @@ class Comments_Not_Replied_To {
 		 if( 'missing-reply' !== trim ( $column_name ) )
 		 	return;
 
+		 $comment = get_comment( $comment_id );
+
+		 if( '0' == $comment->comment_approved )
+		 	return;
+
 		 // If the comment is by the author, then we'll note that its been replied
 		 if( $this->comment_is_by_post_author( $comment_id ) ) {
 
