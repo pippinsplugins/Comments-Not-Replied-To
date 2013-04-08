@@ -223,7 +223,7 @@ class Comments_Not_Replied_To {
 	 private function comment_is_by_post_author( $comment_id ) {
 
 		 $comment = get_comment( $comment_id );
-		 $post = get_post ( $comment->comment_post_ID );
+		 $post    = get_post ( $comment->comment_post_ID );
 
 		 return $comment->comment_author_email == $this->get_post_author_email( $post->ID );
 
@@ -296,7 +296,7 @@ class Comments_Not_Replied_To {
 	 private function get_post_author_email( $post_id ) {
 
 		 // Get the author information for the specified post
-		 $post = get_post( $post_id );
+		 $post   = get_post( $post_id );
 		 $author = get_user_by( 'id', $post->post_author );
 
 		 // Let's store the author data as the author
@@ -348,7 +348,7 @@ class Comments_Not_Replied_To {
 	public function return_missing_list( $comments ) {
 
 		// bail on anything not admin
-		if ( !is_admin() )
+		if ( ! is_admin() )
 			return;
 
 		// only run this on the comments table
@@ -358,7 +358,7 @@ class Comments_Not_Replied_To {
 			return;
 
 		// check for query param
-		if ( !isset( $_GET['missing_reply'] ) )
+		if ( ! isset( $_GET['missing_reply'] ) )
 			return;
 
 		// now run action to show missing
@@ -411,21 +411,21 @@ class Comments_Not_Replied_To {
 	public function remove_missing_meta( $comment_id ) {
 
 		// get comment object array
-		$comm_data		= get_comment( $comment_id );
+		$comm_data      = get_comment( $comment_id );
 
 		// get comment parent ID, post ID, and user ID
-		$comm_parent	= $comm_data->comment_parent;
-		$comm_post_id	= $comm_data->comment_post_ID;
-		$comm_user_id	= $comm_data->user_id;
+		$comm_parent    = $comm_data->comment_parent;
+		$comm_post_id   = $comm_data->comment_post_ID;
+		$comm_user_id   = $comm_data->user_id;
 
 		// check for meta key first, bail if not present
-		$missing		= get_comment_meta( $comm_parent, '_cnrt_missing', true );
+		$missing        = get_comment_meta( $comm_parent, '_cnrt_missing', true );
 
 		if ( empty( $missing ) )
 			return;
 
 		// grab post object to compare
-		$comm_post_obj	= get_post( $comm_post_id );
+		$comm_post_obj  = get_post( $comm_post_id );
 		$comm_post_auth	= $comm_post_obj->post_author;
 
 		// remove meta key on reply
@@ -445,14 +445,14 @@ class Comments_Not_Replied_To {
 	public function get_missing_count( $post_id = 0 ) {
 
 		$args = array(
-			'post_id'		=> $post_id,
-			'meta_key'		=> '_cnrt_missing',
-			'meta_value'	=> '1',
+			'post_id'    => $post_id,
+			'meta_key'   => '_cnrt_missing',
+			'meta_value' => '1',
 		);
 
-		$comments	= get_comments($args);
+		$comment = get_comments( $args );
 
-		$count		= !empty($comments) ? count( $comments ) : '0';
+		$count   = ! empty( $comments ) ? count( $comments ) : '0';
 
 		return $count;
 
