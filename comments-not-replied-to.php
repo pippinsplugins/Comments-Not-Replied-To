@@ -371,6 +371,20 @@ class Comments_Not_Replied_To {
 
 	public function add_missing_meta( $comment_id ) {
 
+		// get comment object array to run author comparison
+		$comm_data		= get_comment( $comment_id );
+
+		// grab post ID and user ID to check
+		$comm_post_id	= $comm_data->comment_post_ID;
+		$comm_user_id	= $comm_data->user_id;
+
+		// grab post object to compare
+		$comm_post_obj	= get_post( $comm_post_id );
+		$comm_post_auth	= $comm_post_obj->post_author;
+
+		if ($comm_user_id == $comm_post_auth)
+			return;
+
 		// set an inital false tag on comment set
 		add_comment_meta( $comment_id, '_cnrt_missing', true );
 
