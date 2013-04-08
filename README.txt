@@ -3,27 +3,45 @@ Contributors: mordauk, norcross, tommcfarlin
 Tags: comments
 Requires at least: 3.5
 Tested up to: 3.5.1
-Stable tag: 0.1
+Stable tag: 1.0
 
 Easily see which comments have not received a reply from each post's author.
 
 == Description ==
 
-TODO
+"Comment's Not Replied To" is a plugin that makes it easy to manage the comments on your blog, especially for those of you who have a significant amount of comments.
+
+Simply put, "Comments Not Replied To" introduces a new area in the administrative dashboard that allows you to see what comments to which you - as the site author - have not yet replied. 
 
 == Installation ==
 
-TODO
+= In The WordPress Dashboard =
 
-== Frequently Asked Questions ==
+1. Navigate to the 'Add New' plugin dashboard
+2. Select `Comments-Not-Replied-To.zip` from your computer
+3. Upload
+4. Activate the plugin in the WordPress Plugin Dashboard
 
-TODO
+= In The WordPress Dashboard =
+
+1. Navigate to the 'Add New' plugin dashboard
+2. Select `Comments-Not-Replied-To.zip` from your computer
+3. Upload
+4. Activate the plugin in the WordPress Plugin Dashboard
+
+= Using FTP =
+
+1. Extract `Comments-Not-Replied-To.zip` to your computer
+2. Upload the `Comments-Not-Replied-To` directory to your wp-content/plugins directory
+3. Navigate to the WordPress Plugin Dashboard
+4. Activate the plugin from this page
 
 == Screenshots ==
 
-TODO
+1. The updated 'Comments Dashboard' showing the new columns with the 'Missing Comments' and their status
 
 == Changelog ==
 
-TODO
+= 1.0 =
+* Initial release
 
