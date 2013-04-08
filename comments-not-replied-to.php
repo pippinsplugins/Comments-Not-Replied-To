@@ -146,7 +146,7 @@ class Comments_Not_Replied_To {
 	 *
 	 * @since	1.0
 	 */
-	public function missing_reply_column( $columns ) {
+	public function missing_reply_column( $columns = array() ) {
 
 		$columns['missing-reply'] = __( 'Missing Reply', 'cnrt' );
 
@@ -162,7 +162,7 @@ class Comments_Not_Replied_To {
 	  *
 	  * @since	1.0
 	  */
-	 public function missing_reply_display( $column_name, $comment_id ) {
+	 public function missing_reply_display( $column_name = '', $comment_id = 0 ) {
 
 		// If we're looking at the 'Missing Reply' column...
 		if( 'missing-reply' !== trim ( $column_name ) )
@@ -220,7 +220,7 @@ class Comments_Not_Replied_To {
 	 * @return	bool					Whether or not the comment is also by the the post author
 	 * @since	1.0
 	 */
-	 private function comment_is_by_post_author( $comment_id ) {
+	 private function comment_is_by_post_author( $comment_id = 0 ) {
 
 		 $comment = get_comment( $comment_id );
 		 $post    = get_post ( $comment->comment_post_ID );
@@ -236,7 +236,7 @@ class Comments_Not_Replied_To {
 	 * @return	array					The array of replies
 	 * @since	1.0
 	 */
-	 private function get_comment_replies( $comment_id ) {
+	 private function get_comment_replies( $comment_id = 0 ) {
 
 		 global $wpdb;
 		 $replies = $wpdb->get_results(
@@ -257,7 +257,7 @@ class Comments_Not_Replied_To {
 	 * @return	bool					Whether or not the post author has replied.
 	 * @since	1.0
 	 */
-	 private function author_has_replied( $replies ) {
+	 private function author_has_replied( $replies = array() ) {
 
 		 $author_has_replied = false;
 
@@ -293,7 +293,7 @@ class Comments_Not_Replied_To {
 	 * @return	string					The email address of the post author
 	 * @since	1.0
 	 */
-	 private function get_post_author_email( $post_id ) {
+	 private function get_post_author_email( $post_id = 0 ) {
 
 		 // Get the author information for the specified post
 		 $post   = get_post( $post_id );
@@ -314,7 +314,7 @@ class Comments_Not_Replied_To {
 	 * @since	1.0
 	 */
 
-	public function missing_reply_status_link( $status_links ) {
+	public function missing_reply_status_link( $status_links = array() ) {
 
 		// add check for including 'current' class
 		$current = isset( $_GET['missing_reply'] ) ? 'class="current"' : '';
@@ -345,7 +345,7 @@ class Comments_Not_Replied_To {
 	 * @since	1.0
 	 */
 
-	public function return_missing_list( $comments ) {
+	public function return_missing_list( $comments = array() ) {
 
 		// bail on anything not admin
 		if ( ! is_admin() )
@@ -379,7 +379,7 @@ class Comments_Not_Replied_To {
 	 * @since	1.0
 	 */
 
-	public function add_missing_meta( $comment_id ) {
+	public function add_missing_meta( $comment_id = 0 ) {
 
 		// get comment object array to run author comparison
 		$comm_data		= get_comment( $comment_id );
@@ -408,7 +408,7 @@ class Comments_Not_Replied_To {
 	 * @since	1.0
 	 */
 
-	public function remove_missing_meta( $comment_id ) {
+	public function remove_missing_meta( $comment_id = 0 ) {
 
 		// get comment object array
 		$comm_data      = get_comment( $comment_id );
