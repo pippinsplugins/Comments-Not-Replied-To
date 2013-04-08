@@ -88,11 +88,11 @@ class Comments_Not_Replied_To {
 	 */
 
 	public static function getInstance() {
-	
+
 		if ( !self::$instance ) {
 			self::$instance = new self;
 		} // end if
-		
+
 		return self::$instance;
 
 	} // end getInstance
@@ -188,17 +188,17 @@ class Comments_Not_Replied_To {
 
 			// Note whether or not the comment author has replied.
 			if( $this->author_has_replied( $replies ) ) {
-			
+
 				$message = __( 'The author has replied.', 'cnrt' );
 				$status  = 'cnrt-has-replied';
 				$icon    = 'icon-replied.png';
-				
+
 			} else {
-			
+
 				$message = __( 'The author has not replied.', 'cnrt' );
 				$status  = 'cnrt-has-not-replied';
 				$icon    = 'icon-not-replied.png';
-				
+
 			} // end if
 
 		} // end if/else
@@ -321,7 +321,7 @@ class Comments_Not_Replied_To {
 
 		// get missing count
 		$missing_num	= $this->get_missing_count();
-		
+
 		// create link
 		$status_link	= '<a href="edit-comments.php?comment_status=all&missing_reply=1" '.$current.'>';
 		$status_link	.= __( 'Missing Reply', 'cnrt' );
@@ -364,7 +364,7 @@ class Comments_Not_Replied_To {
 		// now run action to show missing
 		$comments->query_vars['meta_key']	= '_cnrt_missing';
 		$comments->query_vars['meta_value'] = '1';
-		
+
 		// Because at this point, the meta query has already been parsed,
 		// we need to re-parse it to incorporate our changes
 		$comments->meta_query->parse_query_vars( $comments->query_vars );
