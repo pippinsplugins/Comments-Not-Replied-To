@@ -65,6 +65,9 @@ class Comments_Not_Replied_To {
 		// add the comment meta to comments on entry
 		add_action( 'comment_post', array( $this, 'add_missing_meta' ) );
 
+		// return just the missing replies in the comment table
+		add_action( 'pre_get_comments', array( $this, 'return_missing_list' ) );
+
 		// Add the 'Missing Reply' custom column
 		add_filter( 'manage_edit-comments_columns', array( $this, 'missing_reply_column' ) );
 		add_filter( 'manage_comments_custom_column', array( $this, 'missing_reply_display' ), 10, 2	);
@@ -323,6 +326,40 @@ class Comments_Not_Replied_To {
 		return $status_links;
 
 	} // end missing_reply_status_link
+
+
+	/**
+	 * Return the missing replies in a list on the comments table
+	 * @param	int					$comments		The object array of comments
+	 * @return	array				The filtered comment data
+	 *
+	 * @since	1.0
+	 */
+
+	public function return_missing_list( $comments ) {
+
+		// bail on anything not admin
+		if ( !is_admin() )
+			return;
+
+		// only run this on the comments table
+		$current_screen = get_current_screen();
+
+		if( $current_screen->base !== 'edit-comments' )
+			return;
+
+		// check for query param
+		if (!isset( $_GET['missing_reply'] ) )
+			return;
+
+		// now run action to show missing
+		$comments->query_vars['meta_key']	= '_cnrt_missing';
+		$comments->query_vars['meta_value'] = '1';
+		// Because at this point, the meta query has already been parsed,
+		// we need to re-parse it to incorporate our changes
+		$comments->meta_query->parse_query_vars( $comments->query_vars );
+
+	} // end missing_reply_list
 
 	/**
 	 * Add the meta tag to comments for query logic later
