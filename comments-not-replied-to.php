@@ -62,8 +62,9 @@ class Comments_Not_Replied_To {
 		// Load plugin textdomain
 		add_action( 'init', array( $this, 'plugin_textdomain' ) );
 
-		// add the comment meta to comments on entry
+		// add or remove the comment meta to comments on entry
 		add_action( 'comment_post', array( $this, 'add_missing_meta' ) );
+		add_action( 'comment_post', array( $this, 'remove_missing_meta' ) );
 
 		// return just the missing replies in the comment table
 		add_action( 'pre_get_comments', array( $this, 'return_missing_list' ) );
@@ -389,6 +390,41 @@ class Comments_Not_Replied_To {
 		add_comment_meta( $comment_id, '_cnrt_missing', true );
 
 	} // end add_missing_meta
+
+	/**
+	 * Remove the meta tag to comments for query logic later
+	 * @param	int		$comment_id		The ID of the comment for which to retrieve replies.
+	 * @return	bool					Whether or not the post author has replied.
+	 *
+	 * @since	1.0
+	 */
+
+	public function remove_missing_meta( $comment_id ) {
+
+		// get comment object array
+		$comm_data		= get_comment( $comment_id );
+
+		// get comment parent ID, post ID, and user ID
+		$comm_parent	= $comm_data->comment_parent;
+		$comm_post_id	= $comm_data->comment_post_ID;
+		$comm_user_id	= $comm_data->user_id;
+
+		// check for meta key first, bail if not present
+		$missing		= get_comment_meta( $comm_parent, '_cnrt_missing', true );
+
+		if ( empty( $missing ) )
+			return;
+
+		// grab post object to compare
+		$comm_post_obj	= get_post( $comm_post_id );
+		$comm_post_auth	= $comm_post_obj->post_author;
+
+		// remove meta key on reply
+		if ( $comm_user_id == $comm_post_auth )
+			delete_comment_meta( $comm_parent, '_cnrt_missing' );
+
+
+	} // end remove_missing_meta
 
 
 	/**
