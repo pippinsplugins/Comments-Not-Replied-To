@@ -484,6 +484,11 @@ class Comments_Not_Replied_To {
 
 } // end class
 
-
-// Instantiate our class
-$Comments_Not_Replied_To = Comments_Not_Replied_To::getInstance();
+/**
+ * Instantiates the plugin using the plugins_loaded hook and the
+ * Singleton Pattern.
+ */
+function Comments_Not_Replied_To() {
+	Comments_Not_Replied_To::getInstance();
+} // end Comments_Not_Replied_To
+add_action( 'plugins_loaded', 'Comments_Not_Replied_To' );
