@@ -40,7 +40,6 @@ class Comments_Not_Replied_To {
 	 */
 	static $instance = false;
 
-
 	/**
 	 * Lib URL
 	 *
@@ -89,9 +88,13 @@ class Comments_Not_Replied_To {
 	 */
 
 	public static function getInstance() {
-		if ( !self::$instance )
+	
+		if ( !self::$instance ) {
 			self::$instance = new self;
+		} // end if
+		
 		return self::$instance;
+
 	} // end getInstance
 
 	/*--------------------------------------------*
