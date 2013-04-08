@@ -129,7 +129,7 @@ class Comments_Not_Replied_To {
 		} else {
 			// Load the default language files
 			load_plugin_textdomain( 'cnrt', false, $lang_fir );
-		}
+		} // end if/else
 
 	} // end plugin_textdomain
 
@@ -188,13 +188,17 @@ class Comments_Not_Replied_To {
 
 			// Note whether or not the comment author has replied.
 			if( $this->author_has_replied( $replies ) ) {
+			
 				$message = __( 'The author has replied.', 'cnrt' );
 				$status  = 'cnrt-has-replied';
 				$icon    = 'icon-replied.png';
+				
 			} else {
+			
 				$message = __( 'The author has not replied.', 'cnrt' );
 				$status  = 'cnrt-has-not-replied';
 				$icon    = 'icon-not-replied.png';
+				
 			} // end if
 
 		} // end if/else
@@ -317,6 +321,7 @@ class Comments_Not_Replied_To {
 
 		// get missing count
 		$missing_num	= $this->get_missing_count();
+		
 		// create link
 		$status_link	= '<a href="edit-comments.php?comment_status=all&missing_reply=1" '.$current.'>';
 		$status_link	.= __( 'Missing Reply', 'cnrt' );
@@ -349,16 +354,17 @@ class Comments_Not_Replied_To {
 		// only run this on the comments table
 		$current_screen = get_current_screen();
 
-		if( $current_screen->base !== 'edit-comments' )
+		if( 'edit-comments' !== $current_screen->base )
 			return;
 
 		// check for query param
-		if (!isset( $_GET['missing_reply'] ) )
+		if ( !isset( $_GET['missing_reply'] ) )
 			return;
 
 		// now run action to show missing
 		$comments->query_vars['meta_key']	= '_cnrt_missing';
 		$comments->query_vars['meta_value'] = '1';
+		
 		// Because at this point, the meta query has already been parsed,
 		// we need to re-parse it to incorporate our changes
 		$comments->meta_query->parse_query_vars( $comments->query_vars );
@@ -386,7 +392,7 @@ class Comments_Not_Replied_To {
 		$comm_post_obj	= get_post( $comm_post_id );
 		$comm_post_auth	= $comm_post_obj->post_author;
 
-		if ($comm_user_id == $comm_post_auth)
+		if ( $comm_user_id == $comm_post_auth )
 			return;
 
 		// set an inital false tag on comment set
@@ -426,9 +432,7 @@ class Comments_Not_Replied_To {
 		if ( $comm_user_id == $comm_post_auth )
 			delete_comment_meta( $comm_parent, '_cnrt_missing' );
 
-
 	} // end remove_missing_meta
-
 
 	/**
 	 * Return number of comments with missing replies, either global or per post
@@ -482,8 +486,6 @@ class Comments_Not_Replied_To {
 			</style>';
 
 	} // end admin_css
-
-
 
 } // end class
 
