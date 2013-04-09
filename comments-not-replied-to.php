@@ -327,9 +327,9 @@ class Comments_Not_Replied_To {
 		$missing_num	= $this->get_missing_count();
 
 		// create link
-		$status_link	= '<a href="edit-comments.php?comment_status=all&missing_reply=1" '.$current.'>';
+		$status_link	= '<a href="edit-comments.php?comment_status=all&missing_reply=1" ' . $current . '>';
 		$status_link	.= __( 'Missing Reply', 'cnrt' );
-		$status_link	.= ' <span class="count">(<span class="pending-count">'.$missing_num.'</span>)</span>';
+		$status_link	.= ' <span class="count">(<span class="pending-count">' . $missing_num . '</span>)</span>';
 		$status_link	.= '</a>';
 
 		// set new link
