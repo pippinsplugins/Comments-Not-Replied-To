@@ -454,9 +454,9 @@ class Comments_Not_Replied_To {
 			'meta_value' => '1',
 		);
 
-		$comment = get_comments( $args );
+		$comments = get_comments( $args );
 
-		$count   = ! empty( $comments ) ? count( $comments ) : '0';
+		$count    = ! empty( $comments ) ? count( $comments ) : '0';
 
 		return $count;
 
