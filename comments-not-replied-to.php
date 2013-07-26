@@ -352,7 +352,7 @@ class Comments_Not_Replied_To {
 	public function return_missing_list( $comments = array() ) {
 
 		// bail on anything not admin
-		if ( ! is_admin() )
+		if ( ! is_admin() || ! function_exists( 'get_current_screen' ) )
 			return;
 
 		// only run this on the comments table
