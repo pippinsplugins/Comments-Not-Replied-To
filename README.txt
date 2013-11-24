@@ -2,7 +2,7 @@
 Contributors: mordauk, norcross, tommcfarlin
 Tags: comments
 Requires at least: 3.5
-Tested up to: 3.5.1
+Tested up to: 3.7.2
 Stable tag: 1.0.1
 
 Easily see which comments have not received a reply from each post's author.
