@@ -95,7 +95,7 @@ class Comments_Not_Replied_To {
 
 	public static function getInstance() {
 
-		if ( !self::$instance ) {
+		if ( ! self::$instance ) {
 			self::$instance = new self;
 		} // end if
 
@@ -127,14 +127,20 @@ class Comments_Not_Replied_To {
 		$mofile_global = WP_LANG_DIR . '/cnrt/' . $mofile;
 
 		if ( file_exists( $mofile_global ) ) {
+
 			// Look in global /wp-content/languages/cnrt folder
 			load_textdomain( 'cnrt', $mofile_global );
+
 		} elseif ( file_exists( $mofile_local ) ) {
+
 			// Look in local /wp-content/plugins/comments-not-replied-to/languages/ folder
 			load_textdomain( 'cnrt', $mofile_local );
+
 		} else {
+
 			// Load the default language files
 			load_plugin_textdomain( 'cnrt', false, $lang_fir );
+
 		} // end if/else
 
 	} // end plugin_textdomain
@@ -171,16 +177,18 @@ class Comments_Not_Replied_To {
 	 public function missing_reply_display( $column_name = '', $comment_id = 0 ) {
 
 		// If we're looking at the 'Missing Reply' column...
-		if( 'missing-reply' !== trim ( $column_name ) )
+		if ( 'missing-reply' !== trim ( $column_name ) ) {
 		 	return;
+		 } // end if
 
 		 $comment = get_comment( $comment_id );
 
-		if( '0' == $comment->comment_approved )
+		if ( '0' == $comment->comment_approved ) {
 		 	return;
+		}
 
 		// If the comment is by the author, then we'll note that its been replied
-		if( $this->comment_is_by_post_author( $comment_id ) ) {
+		if ( $this->comment_is_by_post_author( $comment_id ) ) {
 
 			$message = __( 'This comment is by the author.', 'cnrt' );
 			$status  = 'cnrt-author-comment';
@@ -354,18 +362,21 @@ class Comments_Not_Replied_To {
 	public function return_missing_list( $comments = array() ) {
 
 		// bail on anything not admin
-		if ( ! is_admin() || ! function_exists( 'get_current_screen' ) )
+		if ( ! is_admin() || ! function_exists( 'get_current_screen' ) ) {
 			return;
+		} // end if
 
 		// only run this on the comments table
 		$current_screen = get_current_screen();
 
-		if( 'edit-comments' !== $current_screen->base )
+		if( 'edit-comments' !== $current_screen->base ) {
 			return;
+		} // end if
 
 		// check for query param
-		if ( ! isset( $_GET['missing_reply'] ) )
+		if ( ! isset( $_GET['missing_reply'] ) ) {
 			return;
+		} // end if
 
 		// now run action to show missing
 		$comments->query_vars['meta_key']	= '_cnrt_missing';
@@ -398,8 +409,9 @@ class Comments_Not_Replied_To {
 		$comm_post_obj	= get_post( $comm_post_id );
 		$comm_post_auth	= $comm_post_obj->post_author;
 
-		if ( $comm_user_id == $comm_post_auth )
+		if ( $comm_user_id == $comm_post_auth ) {
 			return;
+		} // end if
 
 		// set an inital false tag on comment set
 		add_comment_meta( $comment_id, '_cnrt_missing', true );
@@ -427,16 +439,18 @@ class Comments_Not_Replied_To {
 		// check for meta key first, bail if not present
 		$missing        = get_comment_meta( $comm_parent, '_cnrt_missing', true );
 
-		if ( empty( $missing ) )
+		if ( empty( $missing ) ) {
 			return;
+		} // end if
 
 		// grab post object to compare
 		$comm_post_obj  = get_post( $comm_post_id );
 		$comm_post_auth	= $comm_post_obj->post_author;
 
 		// remove meta key on reply
-		if ( $comm_user_id == $comm_post_auth )
+		if ( $comm_user_id == $comm_post_auth ) {
 			delete_comment_meta( $comm_parent, '_cnrt_missing' );
+		} // end if
 
 	} // end remove_missing_meta
 
@@ -476,8 +490,9 @@ class Comments_Not_Replied_To {
 
 		$current_screen = get_current_screen();
 
-		if( $current_screen->base !== 'edit-comments' )
+		if ( 'edit-comments' !== $current_screen->base ) {
 			return;
+		} // end if
 
 		echo '<style type="text/css">
 			span.cnrt {
