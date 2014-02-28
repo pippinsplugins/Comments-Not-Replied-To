@@ -3,11 +3,13 @@
 Plugin Name: Comments Not Replied To
 Plugin URI: http://github.com/pippinsplugins/Comments-Not-Replied-To/
 Description: Easily see which comments have not received a reply from each post's author.
-Version: 1.0.1
+Version: 1.1.0
 Author: Pippin Williamson, Andrew Norcross, Tom McFarlin
+GitHub Plugin URI: https://github.com/pippinsplugins/Comments-Not-Replied-To
+GitHub Branch:     master
 License:
 
-  Copyright 2013 Pippin Williamson, Andrew Norcross, Tom McFarlin
+  Copyright 2013 - 2014 Pippin Williamson, Andrew Norcross, Tom McFarlin
 
   This program is free software; you can redistribute it and/or modify
   it under the terms of the GNU General Public License, version 2, as
@@ -25,11 +27,11 @@ License:
 */
 
 if( ! defined( 'CNRT_VERSION' ) ) {
-	define( 'CNRT_VERSION', '1.0.1' );
+	define( 'CNRT_VERSION', '1.1.0' );
 } // end if
 
 /**
- * @version 1.0
+ * @version 1.1.0
  */
 class Comments_Not_Replied_To {
 
