@@ -26,7 +26,7 @@ License:
 
 */
 
-if( ! defined( 'CNRT_VERSION' ) ) {
+if ( ! defined( 'CNRT_VERSION' ) ) {
 	define( 'CNRT_VERSION', '1.1.0' );
 } // end if
 
@@ -76,7 +76,7 @@ class Comments_Not_Replied_To {
 
 		// Add the 'Missing Reply' custom column
 		add_filter( 'manage_edit-comments_columns', array( $this, 'missing_reply_column' ) );
-		add_filter( 'manage_comments_custom_column', array( $this, 'missing_reply_display' ), 10, 2	);
+		add_filter( 'manage_comments_custom_column', array( $this, 'missing_reply_display' ), 10, 2 );
 
 		// add 'Missing Reply' link in status row
 		add_filter( 'comment_status_links', array( $this, 'missing_reply_status_link' ) );
@@ -174,12 +174,12 @@ class Comments_Not_Replied_To {
 	  *
 	  * @since	1.0
 	  */
-	 public function missing_reply_display( $column_name = '', $comment_id = 0 ) {
+	public function missing_reply_display( $column_name = '', $comment_id = 0 ) {
 
 		// If we're looking at the 'Missing Reply' column...
-		if ( 'missing-reply' !== trim ( $column_name ) ) {
+		if ( 'missing-reply' !== trim( $column_name ) ) {
 		 	return;
-		 } // end if
+		} // end if
 
 		 $comment = get_comment( $comment_id );
 
@@ -194,14 +194,15 @@ class Comments_Not_Replied_To {
 			$status  = 'cnrt-author-comment';
 			$icon    = 'icon-author.png';
 
-		 // Otherwise, let's look at the replies to determine if the author has made a reply
-		} else {
+		}
+		// Otherwise, let's look at the replies to determine if the author has made a reply
+		else {
 
 			// First, we get all of the replies for this comment
 			$replies = $this->get_comment_replies( $comment_id );
 
 			// Note whether or not the comment author has replied.
-			if( $this->author_has_replied( $replies ) ) {
+			if ( $this->author_has_replied( $replies ) ) {
 
 				$message = __( 'The author has replied.', 'cnrt' );
 				$status  = 'cnrt-has-replied';
@@ -221,7 +222,7 @@ class Comments_Not_Replied_To {
 
 		printf( '<span class="cnrt cnrt-%s" id="cnrt-%d">%s%s</span>', $status, $comment_id, $icon, $message );
 
-	 } // end missing_reply_display
+	} // end missing_reply_display
 
 	/*--------------------------------------------*
 	 * Helper Functions
@@ -234,14 +235,14 @@ class Comments_Not_Replied_To {
 	 * @return	bool					Whether or not the comment is also by the the post author
 	 * @since	1.0
 	 */
-	 private function comment_is_by_post_author( $comment_id = 0 ) {
+	private function comment_is_by_post_author( $comment_id = 0 ) {
 
-		 $comment = get_comment( $comment_id );
-		 $post    = get_post ( $comment->comment_post_ID );
+		$comment = get_comment( $comment_id );
+		$post    = get_post( $comment->comment_post_ID );
 
-		 return $comment->comment_author_email == $this->get_post_author_email( $post->ID );
+		return $comment->comment_author_email == $this->get_post_author_email( $post->ID );
 
-	 } // end if
+	} // end if
 
 	/**
 	 * Retrieves all of the replies for the given comment.
@@ -250,19 +251,19 @@ class Comments_Not_Replied_To {
 	 * @return	array					The array of replies
 	 * @since	1.0
 	 */
-	 private function get_comment_replies( $comment_id = 0 ) {
+	private function get_comment_replies( $comment_id = 0 ) {
 
-		 global $wpdb;
-		 $replies = $wpdb->get_results(
-		 	$wpdb->prepare(
-		 		"SELECT comment_ID, comment_author_email, comment_post_ID FROM $wpdb->comments WHERE comment_parent = %d",
-		 		$comment_id
-		 	)
-		 );
+		global $wpdb;
+		$replies = $wpdb->get_results(
+			$wpdb->prepare(
+				"SELECT comment_ID, comment_author_email, comment_post_ID FROM $wpdb->comments WHERE comment_parent = %d",
+				$comment_id
+			)
+		);
 
-		 return $replies;
+		return $replies;
 
-	 } // end get_comment_replies
+	} // end get_comment_replies
 
 	/**
 	 * Determines whether or not the author has replied to the comment.
@@ -271,34 +272,34 @@ class Comments_Not_Replied_To {
 	 * @return	bool					Whether or not the post author has replied.
 	 * @since	1.0
 	 */
-	 private function author_has_replied( $replies = array() ) {
+	private function author_has_replied( $replies = array() ) {
 
-		 $author_has_replied = false;
+		$author_has_replied = false;
 
 		 // If there are no replies, the author clearly hasn't replied
-		 if( 0 < count( $replies ) ) {
+		if ( 0 < count( $replies ) ) {
 
 			 $comment_count = 0;
-			 while( $comment_count < count ( $replies ) && ! $author_has_replied ) {
+			while ( $comment_count < count( $replies ) && ! $author_has_replied ) {
 
 				 // Read the current comment
-				 $current_comment = $replies[ $comment_count ];
+				$current_comment = $replies[ $comment_count ];
 
 				 // If the comment author email address is the same as the post author's address, then we've found a reply by the author.
-				 if( $current_comment->comment_author_email == $this->get_post_author_email( $current_comment->comment_post_ID ) ) {
+				if ( $current_comment->comment_author_email == $this->get_post_author_email( $current_comment->comment_post_ID ) ) {
 					 $author_has_replied = true;
-				 } // end if
+				} // end if
 
 				 // Now on to the next comment
-				 $comment_count++;
+				$comment_count++;
 
-			 } // end while
+			} // end while
 
-		 } // end if/else
+		} // end if/else
 
-		 return $author_has_replied;
+		return $author_has_replied;
 
-	 } // end author_has_replied
+	} // end author_has_replied
 
 	/**
 	 * Retrieves the email address for the author of the post.
@@ -307,18 +308,22 @@ class Comments_Not_Replied_To {
 	 * @return	string					The email address of the post author
 	 * @since	1.0
 	 */
-	 private function get_post_author_email( $post_id = 0 ) {
+	private function get_post_author_email( $post_id = 0 ) {
 
-		 // Get the author information for the specified post
-		 $post   = get_post( $post_id );
-		 $author = get_user_by( 'id', $post->post_author );
+		// Get the author information for the specified post
+		$post   = get_post( $post_id );
+		$author = get_user_by( 'id', $post->post_author );
+
+		if ( ! $author ) {
+			return false;
+		}
 
 		 // Let's store the author data as the author
-		 $author = $author->data;
+		$author = $author->data;
 
-		 return $author->user_email;
+		return $author->user_email;
 
-	 } // end get_post_author_email
+	} // end get_post_author_email
 
 	/**
 	 * Adds a new item in the comment status links to select those missing a reply
@@ -369,7 +374,7 @@ class Comments_Not_Replied_To {
 		// only run this on the comments table
 		$current_screen = get_current_screen();
 
-		if( 'edit-comments' !== $current_screen->base ) {
+		if ( 'edit-comments' !== $current_screen->base ) {
 			return;
 		} // end if
 
