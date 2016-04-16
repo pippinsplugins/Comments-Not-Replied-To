@@ -369,7 +369,7 @@ class Comments_Not_Replied_To {
 		// only run this on the comments table
 		$current_screen = get_current_screen();
 
-		if( 'edit-comments' !== $current_screen->base ) {
+		if( ! is_object( $current_screen ) || 'edit-comments' !== $current_screen->base ) {
 			return;
 		} // end if
 
