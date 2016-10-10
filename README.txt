@@ -2,8 +2,8 @@
 Contributors: mordauk, norcross, tommcfarlin
 Tags: comments
 Requires at least: 3.5
-Tested up to: 4.1
-Stable tag: 1.0.1
+Tested up to: 4.7
+Stable tag: 1.1.1
 
 Easily see which comments have not received a reply from each post's author.
 
@@ -40,6 +40,10 @@ At this point, no. That would cause issues on larger sites with upwards of 10,00
 1. The updated 'Comments Dashboard' showing the new columns with the 'Missing Comments' and their status
 
 == Changelog ==
+
+= 1.1.1 =
+
+* Fix: PHP notice if $current_screen is not an object
 
 = 1.1.0 =
 * Adding support for the GitHub updater plugin
