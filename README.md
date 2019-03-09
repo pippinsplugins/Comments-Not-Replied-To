@@ -1,6 +1,6 @@
-# Comments Not Replied To
+# UC Comment Management
 
-* Contributors: mordauk, norcross, tommcfarlin
+* Contributors: ladyzyra
 * Tags: comments
 * Requires at least: 3.5
 * Tested up to: 4.1
@@ -8,9 +8,11 @@
 
 ## Description
 
-"Comments Not Replied To" is a plugin that makes it easy to manage the comments on your blog, especially for those of you who have a significant amount of comments.
+"UC Comment Management" is a plugin that makes it easy to manage the comments on your blog, especially for those of you who have a significant amount of comments.
 
-Simply put, "Comments Not Replied To" introduces a new area in the administrative dashboard that allows you to see what comments to which you - as the site author - have not yet replied.
+Simply put, "UC Comment Management" introduces a new area in the administrative dashboard that allows you to see what comments to which you - as the site author - have not yet replied.
+
+This project has been adopted from the WordPress Adopt Me program: https://wordpress.org/plugins/tags/adopt-me/ and forked from pippinsplugins/Comments-Not-Replied-To
 
 ## Installation
 
